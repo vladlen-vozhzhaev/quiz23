@@ -1,3 +1,12 @@
 <resources>
     <string name="app_name">Quiz</string>
+    <string name="yes">Да</string>
+    <string name="no">Нет</string>
+    <string name="correct">Правильно</string>
+    <string name="incorrect">Не правильно</string>
+    <string name="question1">2+2=4?</string>
+    <string name="question2">Солнце - это звезда?</string>
+    <string name="question3">Самара - столица РФ?</string>
+    <string name="question4">HTML - это язык программирования?</string>
+    <string name="question5">Луна - это спутник земли?</string>
 </resources>
