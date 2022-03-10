@@ -10,6 +10,8 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.lang.reflect.Array;
+
 public class MainActivity extends AppCompatActivity {
 
     Button yesBtn;
@@ -24,6 +26,7 @@ public class MainActivity extends AppCompatActivity {
             new Question(R.string.question5, true),
     };
     int questionIndex = 0;
+    Question[] answers = new Question[5];
     final String TAG = "SYSTEM INFO:";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,13 +62,22 @@ public class MainActivity extends AppCompatActivity {
         });
     }
     public void checkAnswer(boolean btn){
-        if((questions[questionIndex].isAnswer() && btn) || (!questions[questionIndex].isAnswer() && !btn))
+        if((questions[questionIndex].isAnswer() && btn) || (!questions[questionIndex].isAnswer() && !btn)) {
             Toast.makeText(MainActivity.this, "Правильно!", Toast.LENGTH_SHORT).show();
-        else{
+            questions[questionIndex].setUserAnswer(true);
+        }else{
             Toast.makeText(MainActivity.this, "Не правильно!", Toast.LENGTH_SHORT).show();
+            questions[questionIndex].setUserAnswer(false);
         }
-        questionIndex = (questionIndex+1)%questions.length;
-        askTextView.setText(questions[questionIndex].getAsk());
+        answers[questionIndex] = questions[questionIndex];
+        questionIndex++;
+        if(questionIndex == questions.length){
+            Intent intent = new Intent(MainActivity.this, ResultActivity.class);
+            intent.putExtra("answers", answers);
+            startActivity(intent);
+        }else askTextView.setText(questions[questionIndex].getAsk());
+        //questionIndex = (questionIndex+1)%questions.length;
+
     }
     @Override
     public void onSaveInstanceState(Bundle bundle){
